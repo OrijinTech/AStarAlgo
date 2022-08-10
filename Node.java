@@ -3,7 +3,7 @@ import java.util.List;
 //https://stackabuse.com/graphs-in-java-a-star-algorithm/
 public class Node implements Comparable<Node>{
     private static int idCounter = 0;
-    private final int nodeID; //this will not be changed
+    public int nodeID; //this will not be changed
     public Node parent;
     public List<Edge> neighbors;
     //heuristic h(x)
@@ -24,10 +24,10 @@ public class Node implements Comparable<Node>{
         return Double.compare(this.fx, n.fx);
     }
 
-    //Getters
-    public int getNodeID() {
-        return nodeID;
-    }
+//    //Getters
+//    public int getNodeID() {
+//        return nodeID;
+//    }
 
     public void addBranch(int weight, Node node){
         Edge newEdge = new Edge(weight, node);

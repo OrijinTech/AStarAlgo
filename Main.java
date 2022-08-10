@@ -3,14 +3,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args){
 
-
-
-
-
-
-
     }
-
 
     public static Node aStar(Node start, Node target){
         PriorityQueue<Node> closedNodes = new PriorityQueue<>();
@@ -42,9 +35,9 @@ public class Main {
                             openNodes.add(m);
                         }
                     }
-
                 }
             }
+            openNodes.remove(n);
             closedNodes.add(n);
         }
         return null;
@@ -58,15 +51,20 @@ public class Main {
 
         List<Integer> stops = new ArrayList<>();
         while(t.parent != null){
-            stops.add(t.getNodeID());
+            stops.add(t.nodeID);
             t = t.parent;
         }
-        stops.add(t.getNodeID());
+        stops.add(t.nodeID);
         Collections.reverse((stops));
-        for(int id : stops){
-            System.out.print(id + " --> ");
-            System.out.println("");
+        for(int idIdx = 0; idIdx<stops.size(); idIdx++){
+            if(idIdx != stops.size()-1) {
+                System.out.print(stops.get(idIdx) + " --> ");
+            }
+            else{
+                System.out.print(stops.get(idIdx));
+            }
         }
+        System.out.println("");
     }
 
 

@@ -2,7 +2,10 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args){
-        Board b = new Board(5,5);
+        Board b = new Board(20,20);
+        Coordinate cord1 = new Coordinate(4,4);
+        Coordinate cord2 = new Coordinate(4, 10);
+        b.addObstacle(cord1, cord2);
         b.printBoard();
     }
 

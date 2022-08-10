@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-
+//https://stackabuse.com/graphs-in-java-a-star-algorithm/
 public class Node implements Comparable<Node>{
     private static int idCounter = 0;
     private final int nodeID; //this will not be changed
@@ -34,9 +34,9 @@ public class Node implements Comparable<Node>{
         this.neighbors.add(newEdge);
     }
 
-//    public double calcHeuristic(Node target){ //you need the target node to calculate the heuristic
-//
-//    }
+    public double calcHeuristic(Node target){ //you need the target node to calculate the heuristic
+        return this.hx;
+    }
 
 
 }

@@ -2,7 +2,8 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args){
-
+        Board b = new Board(5,5);
+        b.printBoard();
     }
 
     public static Node aStar(Node start, Node target){
@@ -66,7 +67,5 @@ public class Main {
         }
         System.out.println("");
     }
-
-
 
 }

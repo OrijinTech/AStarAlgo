@@ -11,6 +11,7 @@ public class Node implements Comparable<Node>{
     //Evaluation functions
     public double fx = Double.MAX_VALUE; //cost function
     public double gx = Double.MAX_VALUE; //move function
+    public boolean walkable; // true --> available block    false --> obstacle
 
     //Constructor
     public Node(double hx){
@@ -36,6 +37,10 @@ public class Node implements Comparable<Node>{
 
     public double calcHeuristic(Node target){ //you need the target node to calculate the heuristic
         return this.hx;
+    }
+
+    public boolean isWalkable(){
+        return true;
     }
 
 

@@ -1,3 +1,5 @@
+package src;
+
 import java.util.*;
 
 public class Main {
@@ -7,6 +9,8 @@ public class Main {
         Coordinate cord2 = new Coordinate(4, 10);
         b.addObstacle(cord1, cord2);
         b.printBoard();
+
+
     }
 
     public static Node aStar(Node start, Node target){

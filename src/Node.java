@@ -1,4 +1,8 @@
+package src;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 //https://stackabuse.com/graphs-in-java-a-star-algorithm/
 public class Node implements Comparable<Node>{
@@ -12,6 +16,7 @@ public class Node implements Comparable<Node>{
     public double fx = Double.MAX_VALUE; //cost function
     public double gx = Double.MAX_VALUE; //move function
     public boolean walkable; // true --> available block    false --> obstacle
+    //Board fields
     public String sign;
     public Coordinate coordinate;
 
@@ -57,9 +62,16 @@ public class Node implements Comparable<Node>{
         return this.hx;
     }
 
-    public boolean isWalkable(){
-        return true;
+    public boolean nodeWalkable(){
+        return this.walkable;
     }
+
+    public double manhattanDist(Node target){
+        double dist;
+        dist = Math.abs(this.coordinate.xCord - target.coordinate.xCord) + Math.abs(this.coordinate.yCord - target.coordinate.yCord);
+        return dist;
+    }
+
 
 
 }

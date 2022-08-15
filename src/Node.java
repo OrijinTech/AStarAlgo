@@ -21,13 +21,12 @@ public class Node implements Comparable<Node>{
     public Coordinate coordinate;
 
     //Constructor for a star nodes
-    public Node(double hx, int xcord, int ycord){
+    public Node(int xcord, int ycord){
         this.nodeID = idCounter++;
-        this.hx = hx;
         this.neighbors = new ArrayList<Edge>();
         this.walkable = true;
         this.coordinate = new Coordinate(xcord, ycord);
-        this.sign = "[ ]";
+        this.sign = "[o]";
     }
 
     //Constructor for board nodes
@@ -59,6 +58,7 @@ public class Node implements Comparable<Node>{
     }
 
     public double calcHeuristic(Node target){ //you need the target node to calculate the heuristic
+        this.hx = manhattanDist(target);
         return this.hx;
     }
 
@@ -72,6 +72,27 @@ public class Node implements Comparable<Node>{
         return dist;
     }
 
+    // Array is enough, we are not changing the size of the neighbor list (always 8 neighbors)
+    public Node[] neighborsOf8(Node cell, Board b){
+        Node[] nodes = new Node[8];
+        int nodeIdx = 0;
+        for(int y = -1; y<=1; y++){
+            for(int x = -1; x<=1; x++){
+                if(inBounds(cell.coordinate.xCord + x, cell.coordinate.yCord + y, b)){
+                    Node node = b.grid[cell.coordinate.xCord + x][cell.coordinate.yCord + y];
+                    if(node.walkable && node != cell){
+                        nodes[nodeIdx] = node;
+                        nodeIdx++;
+                    }
+                }
+            }
+        }
+        return nodes;
+    }
+
+    public boolean inBounds(int xCord, int yCord, Board b){
+        return (xCord < b.rows && yCord < b.cols) && (xCord >= 0 && yCord >= 0);
+    }
 
 
 }

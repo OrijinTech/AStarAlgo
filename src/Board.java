@@ -26,6 +26,10 @@ public class Board {
         }
     }
 
+    public void addNodeToBoard(Node node){
+        this.grid[node.coordinate.xCord][node.coordinate.yCord] = node;
+    }
+
     public void addObstacle(Coordinate cord1, Coordinate cord2){
         for(int i = 0; i<Math.abs(cord2.yCord-cord1.yCord); i++){
             //create an obstacle node
@@ -39,18 +43,6 @@ public class Board {
         return this.grid[xcord][ycord];
     }
 
-    // Array is enough, we are not changing the size of the neighbor list (always 4 neighbors)
-    public Node[] neighborsOf8(Node cell){
-        Node[] nodes = new Node[8];
-        nodes[0] = grid[cell.coordinate.xCord+1][cell.coordinate.yCord-1]; //up
-        nodes[1] = grid[cell.coordinate.xCord][cell.coordinate.yCord+1]; //down
-        nodes[2] = grid[cell.coordinate.xCord-1][cell.coordinate.yCord]; //left
-        nodes[3] = grid[cell.coordinate.xCord+1][cell.coordinate.yCord]; //right
-        nodes[4] = grid[cell.coordinate.xCord+1][cell.coordinate.yCord+1];
-        nodes[5] = grid[cell.coordinate.xCord+1][cell.coordinate.yCord-1];
-        nodes[6] = grid[cell.coordinate.xCord-1][cell.coordinate.yCord+1];
-        nodes[7] = grid[cell.coordinate.xCord-1][cell.coordinate.yCord-1];
-        return nodes;
-    }
+
 
 }

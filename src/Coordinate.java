@@ -1,8 +1,8 @@
 package src;
 
 public class Coordinate {
-    public int xCord; // column number
-    public int yCord; // row number
+    public int xCord; // rows number
+    public int yCord; // cols number
 
     public Coordinate(int x, int y){
         this.xCord = x;

@@ -1,6 +1,39 @@
 package src;
+import javax.swing.JPanel;
+import java.awt.*;
 
-public class Board {
+public class Board extends JPanel {
+    final int maxRow = 10;
+    final int maxCol = 15;
+    final int nodeSize = 80;
+    final int screenWidth = nodeSize * maxCol;
+    final int screenHeight = nodeSize * maxRow;
+
+    //Node
+    NodeUI[][] nodes = new NodeUI[maxCol][maxRow];
+
+    public Board(){
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        this.setBackground(Color.orange);
+        this.setLayout(new GridLayout(maxRow, maxCol));
+        this.initializeBoard();
+    }
+
+    //create new nodes on the grid (default nodes)
+    public void initializeBoard(){
+        int col = 0;
+        int row = 0;
+        while(col < maxCol && row < maxRow){
+            nodes[col][row] = new NodeUI(col, row);
+            this.add(nodes[col][row]);
+            col++;
+            if(col == maxCol){
+                col = 0;
+                row++;
+            }
+        }
+    }
+
     public int rows;
     public int cols;
     public Node[][] grid;

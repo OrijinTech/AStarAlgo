@@ -1,21 +1,36 @@
 package src;
-
 import java.util.*;
+import javax.swing.JFrame;
+
 
 public class Main {
     public static void main(String[] args){
-        Board b = new Board(20,20);
-        Coordinate cord1 = new Coordinate(4,4);
-        Coordinate cord2 = new Coordinate(4, 10);
-        //b.addObstacle(cord1, cord2);
-        //adding starting node
-        Node start = new Node(1,5);
-        Node target = new Node(8,5);
-        b.addNodeToBoard(start);
-        b.addNodeToBoard(target);
-        b.printBoard();
-        aStar(start,target,b);
-        printPath(target,b);
+        visualizer();
+//        Board b = new Board(20,20);
+//        Coordinate cord1 = new Coordinate(4,4);
+//        Coordinate cord2 = new Coordinate(4, 10);
+//        //b.addObstacle(cord1, cord2);
+//        //adding starting node
+//        Node start = new Node(1,5);
+//        Node target = new Node(8,5);
+//        b.addNodeToBoard(start);
+//        b.addNodeToBoard(target);
+//        b.printBoard();
+//        aStar(start,target,b);
+//        printPath(target,b);
+    }
+
+    //this is the UI for visualizing A*
+    public static void visualizer(){
+        JFrame window = new JFrame();
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
+        window.add(new Board());
+
+        window.pack();
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+
     }
 
     public static Node aStar(Node start, Node target, Board board){

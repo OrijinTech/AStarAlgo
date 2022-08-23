@@ -44,7 +44,7 @@ public class Board extends JPanel {
     }
 
     public void setTargetNode(int col, int row){
-        nodes[col][row].setNode("start");
+        nodes[col][row].setNode("target");
         goalNode = nodes[col][row];
     }
 

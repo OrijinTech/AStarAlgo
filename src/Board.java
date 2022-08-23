@@ -11,6 +11,7 @@ public class Board extends JPanel {
 
     //Node
     NodeUI[][] nodes = new NodeUI[maxCol][maxRow];
+    NodeUI startNode, goalNode, currentNode;
 
     public Board(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -32,7 +33,21 @@ public class Board extends JPanel {
                 row++;
             }
         }
+        setStartNode(3,6);
+        setTargetNode(11,3);
     }
+
+    public void setStartNode(int col, int row){
+        nodes[col][row].setNode("start");
+        startNode = nodes[col][row];
+        currentNode = startNode;
+    }
+
+    public void setTargetNode(int col, int row){
+        nodes[col][row].setNode("start");
+        goalNode = nodes[col][row];
+    }
+
 
     public int rows;
     public int cols;

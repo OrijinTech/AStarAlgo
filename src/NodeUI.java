@@ -25,6 +25,22 @@ public class NodeUI extends JButton implements ActionListener {
         addActionListener(this);
     }
 
+    public void setNode(String mode){
+        if(mode.equalsIgnoreCase("start")){
+            setBackground(Color.blue);
+            setForeground(Color.white);
+            setText("Start");
+            start = true;
+        }
+        if(mode.equals("target")){
+            setBackground(Color.yellow);
+            setForeground(Color.black);
+            setText("Target");
+            goal = true;
+        }
+
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

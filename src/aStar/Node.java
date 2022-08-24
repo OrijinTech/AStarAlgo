@@ -5,7 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Node extends JButton {
-    Node parent;
+    static int idCount = 0;
+    int id = 0;
     int col;
     int row;
     int gCost;
@@ -16,12 +17,23 @@ public class Node extends JButton {
     boolean isObstacle;
     boolean isOpen;
     boolean isChecked;
+    Node parent;
 
     public Node(int col, int row){
         this.col = col;
         this.row = row;
         setBackground(Color.getHSBColor(0.85f,0.2f,1.0f));
         setForeground(Color.black);
+        setId();
+    }
+
+    public void setId(){
+        idCount++;
+        this.id = idCount;
+    }
+
+    public static void resetId(){
+        idCount = 0;
     }
 
     public void setNode(String mode){
@@ -44,10 +56,25 @@ public class Node extends JButton {
         }
     }
 
+    public void resetNode(){
+        setBackground(Color.getHSBColor(0.85f,0.2f,1.0f));
+        setForeground(Color.black);
+        parent = null;
+        gCost = 0;
+        hCost = 0;
+        fCost = 0;
+        isStart = false;
+        isTarget = false;
+        isObstacle = false;
+        isOpen = false;
+        isChecked = false;
+    }
+
     public void setAsOpen(){
         isOpen = true;
     }
 
+    // set the node status to "Checked"
     public void setAsChecked(){
         if(!isStart && !isTarget){
             setBackground(Color.getHSBColor(0.25f,0.35f,1f));

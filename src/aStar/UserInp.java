@@ -25,6 +25,9 @@ public class UserInp implements KeyListener {
         else if(code == KeyEvent.VK_A){
             map.aStarAuto();
         }
+        else if(code == KeyEvent.VK_R){
+            map.resetBoard();
+        }
 
     }
 

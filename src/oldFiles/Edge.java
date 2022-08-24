@@ -1,4 +1,4 @@
-package src;
+package src.oldFiles;
 
 public class Edge {
     public int weight;

@@ -1,54 +1,7 @@
-package src;
+package src.oldFiles;
 import javax.swing.JPanel;
-import java.awt.*;
 
 public class Board extends JPanel {
-    final int maxRow = 10;
-    final int maxCol = 15;
-    final int nodeSize = 80;
-    final int screenWidth = nodeSize * maxCol;
-    final int screenHeight = nodeSize * maxRow;
-
-    //Node
-    NodeUI[][] nodes = new NodeUI[maxCol][maxRow];
-    NodeUI startNode, goalNode, currentNode;
-
-    public Board(){
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.orange);
-        this.setLayout(new GridLayout(maxRow, maxCol));
-        this.initializeBoard();
-    }
-
-    //create new nodes on the grid (default nodes)
-    public void initializeBoard(){
-        int col = 0;
-        int row = 0;
-        while(col < maxCol && row < maxRow){
-            nodes[col][row] = new NodeUI(col, row);
-            this.add(nodes[col][row]);
-            col++;
-            if(col == maxCol){
-                col = 0;
-                row++;
-            }
-        }
-        setStartNode(3,6);
-        setTargetNode(11,3);
-    }
-
-    public void setStartNode(int col, int row){
-        nodes[col][row].setNode("start");
-        startNode = nodes[col][row];
-        currentNode = startNode;
-    }
-
-    public void setTargetNode(int col, int row){
-        nodes[col][row].setNode("target");
-        goalNode = nodes[col][row];
-    }
-
-
     public int rows;
     public int cols;
     public Node[][] grid;

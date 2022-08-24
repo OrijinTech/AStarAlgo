@@ -1,8 +1,7 @@
-package src;
+package src.oldFiles;
 
-import java.lang.reflect.Array;
+import src.oldFiles.Board;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 //https://stackabuse.com/graphs-in-java-a-star-algorithm/
 public class Node implements Comparable<Node>{

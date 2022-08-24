@@ -1,4 +1,4 @@
-package src;
+package src.oldFiles;
 
 public class Coordinate {
     public int xCord; // rows number

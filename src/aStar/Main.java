@@ -19,9 +19,5 @@ public class Main {
         application.setLocationRelativeTo(null);
         application.setVisible(true);
 
-
-
-
     }
-
 }

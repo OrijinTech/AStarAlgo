@@ -2,9 +2,7 @@ package src.aStar;
 
 import javax.swing.JPanel;
 import java.awt.*;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Board extends JPanel {
     final int maxRow = 40;
@@ -25,7 +23,6 @@ public class Board extends JPanel {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.orange);
         this.setLayout(new GridLayout(maxRow, maxCol));
-        this.addKeyListener(new UserInp(this));
         this.setFocusable(true);
         this.initializeBoard();
     }
@@ -43,17 +40,16 @@ public class Board extends JPanel {
                 row++;
             }
         }
-        addMemberNodes();
+        addStartandTarget();
     }
 
-    public void addMemberNodes(){
+    public void addStartandTarget(){
         //set start and end node
         setStartNode(3,6);
-        setTargetNode(11,3);
+        setTargetNode(21,26);
         //set the cost texts on all the nodes
         setCostText();
     }
-
 
 
     public void setStartNode(int col, int row){
@@ -82,13 +78,13 @@ public class Board extends JPanel {
     //calculating the f(x) and sets it to the node
     public void getCost(Node node){
         //calculating g(x)
-        int xDist = Math.abs(node.col - startNode.col);
-        int yDist = Math.abs(node.row - startNode.row);
-        node.gCost = xDist + yDist;
+        double xDist = Math.abs(node.col - startNode.col);
+        double yDist = Math.abs(node.row - startNode.row);
+        node.gCost = Math.sqrt(xDist*xDist + yDist*yDist);
         //calculating h(x)
         xDist = Math.abs(node.col - goalNode.col);
         yDist = Math.abs(node.row - goalNode.row);
-        node.hCost = xDist + yDist;
+        node.gCost = Math.sqrt(xDist*xDist + yDist*yDist);
         //calculating f(x) and set it for the node
         node.fCost = node.gCost + node.hCost;
         //if we are not at the start or target node, add the cost info
@@ -147,7 +143,7 @@ public class Board extends JPanel {
             if(col - 1 >= 0) openNode(nodes[col-1][row]);
             if(col + 1 < maxCol) openNode(nodes[col+1][row]);
             int bestIndex = 0;
-            int bestFCost = 999;
+            double bestFCost = 999;
 
             for(int i = 0; i<openList.size();i++){
                 //check if the this node has a better f cost than the default node's f cost
@@ -191,7 +187,7 @@ public class Board extends JPanel {
             if(col - 1 >= 0) openNode(nodes[col-1][row]); //Left
             if(col + 1 < maxCol) openNode(nodes[col+1][row]); //Right
             int bestIndex = 0;
-            int bestFCost = 999; //default the f(x) to a very high value
+            double bestFCost = 999; //default the f(x) to a very high value
 
             for(int curIdx = 0; curIdx < openList.size(); curIdx++){
                 //check if the this node has a better f cost than the default node's f cost
@@ -222,7 +218,7 @@ public class Board extends JPanel {
         step++;
     }
 
-    public void resetBoard(){
+    public void clearObstacle(){
         openList.clear();
         checkedList.clear();
         targetReached = false;
@@ -241,8 +237,31 @@ public class Board extends JPanel {
                 row++;
             }
         }
-        addMemberNodes();
+        addStartandTarget();
     }
+
+    public void resetBoard(){
+        openList.clear();
+        checkedList.clear();
+        targetReached = false;
+        step = 0;
+        goalNode.isOpen = false;
+        //clear the board
+        int col = 0;
+        int row = 0;
+        while(col < maxCol && row < maxRow){
+            if(!nodes[col][row].isStart && !nodes[col][row].isTarget && !nodes[col][row].isObstacle){
+                nodes[col][row].resetNode();
+            }
+            col++;
+            if(col == maxCol){
+                col = 0;
+                row++;
+            }
+        }
+        addStartandTarget();
+    }
+
 
 
 }

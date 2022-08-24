@@ -12,7 +12,7 @@ public class Menu extends JFrame implements ActionListener {
     JButton button1 = new JButton("A* Search");
     JButton button2 = new JButton("Manual A*");
     JButton button3 = new JButton("Reset");
-    JButton button4 = new JButton("Button 1");
+    JButton button4 = new JButton("Clear Obstacle");
 
     public Menu(String title, Board board){
         super(title);
@@ -59,6 +59,7 @@ public class Menu extends JFrame implements ActionListener {
         if(e.getSource() == button1) aStarGrid.aStarAuto();
         if(e.getSource() == button2) aStarGrid.aStarManual();
         if(e.getSource() == button3) aStarGrid.resetBoard();
+        if(e.getSource() == button4) aStarGrid.clearObstacle();
     }
 
 }

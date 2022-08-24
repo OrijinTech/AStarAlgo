@@ -9,9 +9,9 @@ public class Node extends JButton implements ActionListener {
     int id = 0;
     int col;
     int row;
-    int gCost;
-    int hCost;
-    int fCost;
+    double gCost;
+    double hCost;
+    double fCost;
     boolean isStart;
     boolean isTarget;
     boolean isObstacle;

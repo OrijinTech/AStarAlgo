@@ -18,7 +18,7 @@ public class UserInp implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-
+        System.out.println("Pressed: " + code);
         if(code == KeyEvent.VK_ENTER){
             map.aStarManual();
         }

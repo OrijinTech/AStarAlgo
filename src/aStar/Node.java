@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Node extends JButton {
+public class Node extends JButton implements ActionListener {
     static int idCount = 0;
     int id = 0;
     int col;
@@ -24,6 +24,7 @@ public class Node extends JButton {
         this.row = row;
         setBackground(Color.getHSBColor(0.85f,0.2f,1.0f));
         setForeground(Color.black);
+        addActionListener(this);
         setId();
     }
 
@@ -53,6 +54,11 @@ public class Node extends JButton {
             setBackground(Color.black);
             setForeground(Color.black);
             isObstacle = true;
+        }
+        if(mode.equals("remove obstacle")){
+            setBackground(Color.getHSBColor(0.85f,0.2f,1.0f));
+            setForeground(Color.black);
+            isObstacle = false;
         }
     }
 
@@ -88,4 +94,15 @@ public class Node extends JButton {
         setForeground(Color.black);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println(this.id);
+        if(!isObstacle){
+            setNode("obstacle");
+        }
+        else if(isObstacle){
+            setNode("remove obstacle");
+        }
+
+    }
 }

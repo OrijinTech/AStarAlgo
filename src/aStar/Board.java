@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Board extends JPanel {
-    final int maxRow = 15;
-    final int maxCol = 20;
-    final int nodeSize = 80;
+    final int maxRow = 40;
+    final int maxCol = 40;
+    final int nodeSize = 20;
     final int screenWidth = nodeSize * maxCol;
     final int screenHeight = nodeSize * maxRow;
     boolean targetReached = false;
@@ -76,6 +76,8 @@ public class Board extends JPanel {
         setCostText();
     }
 
+
+
     public void setStartNode(int col, int row){
         if((col < maxCol && row < maxRow) && (col >= 0 && row>=0)){
             nodes[col][row].setNode("start");
@@ -114,7 +116,7 @@ public class Board extends JPanel {
         //if we are not at the start or target node, add the cost info
         if(node != startNode && node != goalNode){
             //node.setText("<html>Col:" + node.col + "<br>Row:" + node.row + "</html>");
-            node.setText("<html>F:" + node.fCost + "<br>G:" + node.gCost + "</html>");
+            //node.setText("<html>F:" + node.fCost + "<br>G:" + node.gCost + "</html>");
         }
     }
 

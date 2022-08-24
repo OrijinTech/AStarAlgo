@@ -8,6 +8,12 @@ import java.awt.event.ActionListener;
 
 public class Menu extends JFrame implements ActionListener {
     Board aStarGrid;
+
+    JButton button1 = new JButton("A* Search");
+    JButton button2 = new JButton("Manual A*");
+    JButton button3 = new JButton("Reset");
+    JButton button4 = new JButton("Button 1");
+
     public Menu(String title, Board board){
         super(title);
 
@@ -19,11 +25,11 @@ public class Menu extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
-        JButton button1 = new JButton("A* Search");
-        JButton button2 = new JButton("Reset");
-        JButton button3 = new JButton("Manual A*");
-        JButton button4 = new JButton("Button 1");
+
         button1.addActionListener(this);
+        button2.addActionListener(this);
+        button3.addActionListener(this);
+        button4.addActionListener(this);
 
         Container mainContainer = this.getContentPane();
         mainContainer.setLayout(new BorderLayout(8,6));
@@ -50,6 +56,9 @@ public class Menu extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        aStarGrid.aStarAuto();
+        if(e.getSource() == button1) aStarGrid.aStarAuto();
+        if(e.getSource() == button2) aStarGrid.aStarManual();
+        if(e.getSource() == button3) aStarGrid.resetBoard();
     }
+
 }

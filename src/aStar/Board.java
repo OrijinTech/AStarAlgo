@@ -50,28 +50,6 @@ public class Board extends JPanel {
         //set start and end node
         setStartNode(3,6);
         setTargetNode(11,3);
-        //set obstacle
-        setObstacleNode(10,2);
-        setObstacleNode(10,3);
-        setObstacleNode(10,4);
-        setObstacleNode(10,5);
-        setObstacleNode(10,6);
-        setObstacleNode(10,7);
-        setObstacleNode(6,2);
-        setObstacleNode(7,2);
-        setObstacleNode(8,2);
-        setObstacleNode(9,2);
-        setObstacleNode(11,7);
-        setObstacleNode(12,7);
-        setObstacleNode(6,1);
-        setObstacleNode(6,0);
-        setObstacleNode(13,7);
-        setObstacleNode(14,7);
-        setObstacleNode(14,6);
-        setObstacleNode(14,5);
-        setObstacleNode(14,4);
-        setObstacleNode(14,3);
-        setObstacleNode(14,2);
         //set the cost texts on all the nodes
         setCostText();
     }

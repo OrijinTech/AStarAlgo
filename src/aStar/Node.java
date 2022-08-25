@@ -22,7 +22,7 @@ public class Node extends JButton implements ActionListener {
     public Node(int col, int row){
         this.col = col;
         this.row = row;
-        setBackground(Color.getHSBColor(0.85f,0.2f,1.0f));
+        setBackground(Color.getHSBColor(calcHueVal(230),0.01f,1.0f));
         setForeground(Color.black);
         addActionListener(this);
         setId();
@@ -33,6 +33,10 @@ public class Node extends JButton implements ActionListener {
         this.id = idCount;
     }
 
+    public float calcHueVal(float hue){
+        return hue/360f;
+    }
+
     public static void resetId(){
         idCount = 0;
     }
@@ -41,13 +45,13 @@ public class Node extends JButton implements ActionListener {
         if(mode.equalsIgnoreCase("start")){
             setBackground(Color.getHSBColor(0.58f,1f,1f));
             setForeground(Color.white);
-            setText("Start");
+            setText("S");
             isStart = true;
         }
         if(mode.equals("target")){
             setBackground(Color.getHSBColor(0.05f,1.0f,1.0f));
             setForeground(Color.black);
-            setText("Target");
+            setText("T");
             isTarget = true;
         }
         if(mode.equals("obstacle")){
@@ -56,14 +60,14 @@ public class Node extends JButton implements ActionListener {
             isObstacle = true;
         }
         if(mode.equals("remove obstacle")){
-            setBackground(Color.getHSBColor(0.85f,0.2f,1.0f));
+            setBackground(Color.getHSBColor(calcHueVal(230),0.01f,1.0f));
             setForeground(Color.black);
             isObstacle = false;
         }
     }
 
     public void resetNode(){
-        setBackground(Color.getHSBColor(0.85f,0.2f,1.0f));
+        setBackground(Color.getHSBColor(calcHueVal(230),0.01f,1.0f));
         setForeground(Color.black);
         parent = null;
         gCost = 0;
@@ -97,10 +101,10 @@ public class Node extends JButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println(this.id);
-        if(!isObstacle){
+        if(!isObstacle && !isTarget && !isStart){
             setNode("obstacle");
         }
-        else if(isObstacle){
+        else if(isObstacle && !isTarget && !isStart){
             setNode("remove obstacle");
         }
 

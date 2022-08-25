@@ -5,9 +5,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Board extends JPanel {
-    final int maxRow = 40;
-    final int maxCol = 40;
-    final int nodeSize = 20;
+    final int maxRow = 30;
+    final int maxCol = 30;
+    final int nodeSize = 30;
     final int screenWidth = nodeSize * maxCol;
     final int screenHeight = nodeSize * maxRow;
     boolean targetReached = false;
@@ -46,7 +46,7 @@ public class Board extends JPanel {
     public void addStartandTarget(){
         //set start and end node
         setStartNode(3,6);
-        setTargetNode(21,26);
+        setTargetNode(14,26);
         //set the cost texts on all the nodes
         setCostText();
     }
@@ -75,8 +75,28 @@ public class Board extends JPanel {
         }
     }
 
-    //calculating the f(x) and sets it to the node
-    public void getCost(Node node){
+    //calculating the f(x) based on the Manhattan distance and sets it to the node
+    public void getManhattanCost(Node node){
+        String mode = "E";
+        //calculating g(x)
+        double xDist = Math.abs(node.col - startNode.col);
+        double yDist = Math.abs(node.row - startNode.row);
+        node.gCost = xDist + yDist;
+        //calculating h(x)
+        xDist = Math.abs(node.col - goalNode.col);
+        yDist = Math.abs(node.row - goalNode.row);
+        node.hCost = xDist + yDist;
+        //calculating f(x) and set it for the node
+        node.fCost = node.gCost + node.hCost;
+        //if we are not at the start or target node, add the cost info
+        if(node != startNode && node != goalNode) {
+            //node.setText("<html>Col:" + node.col + "<br>Row:" + node.row + "</html>");
+            //node.setText("<html>F:" + node.fCost + "<br>G:" + node.gCost + "</html>");
+        }
+    }
+
+    //calculating the f(x) based on the Euclidean distance and sets it to the node
+    public void getEuclideanCost(Node node){
         //calculating g(x)
         double xDist = Math.abs(node.col - startNode.col);
         double yDist = Math.abs(node.row - startNode.row);
@@ -84,7 +104,7 @@ public class Board extends JPanel {
         //calculating h(x)
         xDist = Math.abs(node.col - goalNode.col);
         yDist = Math.abs(node.row - goalNode.row);
-        node.gCost = Math.sqrt(xDist*xDist + yDist*yDist);
+        node.hCost = Math.sqrt(xDist*xDist + yDist*yDist);
         //calculating f(x) and set it for the node
         node.fCost = node.gCost + node.hCost;
         //if we are not at the start or target node, add the cost info
@@ -99,7 +119,7 @@ public class Board extends JPanel {
         int row = 0;
         int col = 0;
         while(col < maxCol && row < maxRow){
-            getCost(nodes[col][row]);
+            getManhattanCost(nodes[col][row]);
             col++;
             if(col == maxCol){
                 col = 0;
@@ -131,17 +151,22 @@ public class Board extends JPanel {
     //manual mode of the A* search, 1 step of A*
     public void aStarManual(){
         if(!targetReached && step < 300) {
+            System.out.println(currentNode.id);
+
             int col = currentNode.col;
             int row = currentNode.row;
 
             currentNode.setAsChecked();
             checkedList.add(currentNode);
             openList.remove(currentNode);
+
             //neighbors of 4
-            if(row - 1 >= 0) openNode(nodes[col][row-1]);
-            if(row + 1 < maxRow) openNode(nodes[col][row+1]);
-            if(col - 1 >= 0) openNode(nodes[col-1][row]);
-            if(col + 1 < maxCol) openNode(nodes[col+1][row]);
+            //neighbors4(col, row);
+            if(row - 1 >= 0) openNode(nodes[col][row-1]); //Up
+            if(row + 1 < maxRow) openNode(nodes[col][row+1]); //Down
+            if(col - 1 >= 0) openNode(nodes[col-1][row]); //Left
+            if(col + 1 < maxCol) openNode(nodes[col+1][row]); //Right
+
             int bestIndex = 0;
             double bestFCost = 999;
 
@@ -181,26 +206,22 @@ public class Board extends JPanel {
             checkedList.add(currentNode);
             openList.remove(currentNode);
 
-            //neighbors of 4
-            if(row - 1 >= 0) openNode(nodes[col][row-1]); //Up
-            if(row + 1 < maxRow) openNode(nodes[col][row+1]); //Down
-            if(col - 1 >= 0) openNode(nodes[col-1][row]); //Left
-            if(col + 1 < maxCol) openNode(nodes[col+1][row]); //Right
+            //neighbors of 8
+            neighbors4(row,col);
+
             int bestIndex = 0;
             double bestFCost = 999; //default the f(x) to a very high value
 
-            for(int curIdx = 0; curIdx < openList.size(); curIdx++){
+            for(int i = 0; i<openList.size();i++){
                 //check if the this node has a better f cost than the default node's f cost
-                if(openList.get(curIdx).fCost < bestFCost){ //it is better
-                    //update the index and f(x) of the current best node to go
-                    bestIndex = curIdx;
-                    bestFCost = openList.get(curIdx).fCost;
+                if(openList.get(i).fCost < bestFCost){
+                    bestIndex = i;
+                    bestFCost = openList.get(i).fCost;
                 }
                 //if f cost is equal, compare g cost
-                else if(openList.get(curIdx).fCost == bestFCost){
-                    if(openList.get(curIdx).gCost < openList.get(bestIndex).gCost){
-                        //only update the index
-                        bestIndex = curIdx;
+                else if(openList.get(i).fCost == bestFCost){
+                    if(openList.get(i).gCost < openList.get(bestIndex).gCost){
+                        bestIndex = i;
                     }
                 }
             }
@@ -213,9 +234,28 @@ public class Board extends JPanel {
                 // draw the path
                 getPath();
             }
+            //increase A* steps
+            step++;
         }
-        //increase A* steps
-        step++;
+
+    }
+
+    public void neighbors8(int row, int col){
+        if(row - 1 >= 0) openNode(nodes[col][row-1]); //Up
+        if(row + 1 < maxRow) openNode(nodes[col][row+1]); //Down
+        if(col - 1 >= 0) openNode(nodes[col-1][row]); //Left
+        if(col + 1 < maxCol) openNode(nodes[col+1][row]); //Right
+        if(row - 1 >= 0 && col - 1 >= 0) openNode(nodes[col-1][row-1]); //upper left
+        if(row - 1 >= 0 && col + 1 < maxCol) openNode(nodes[col+1][row-1]); //upper right
+        if(row + 1 < maxRow && col - 1 >=0) openNode(nodes[col-1][row+1]); //bottom left
+        if(row + 1 < maxRow && col + 1 < maxCol) openNode(nodes[col+1][row+1]); //bottom right
+    }
+
+    public void neighbors4(int row, int col){
+        if(row - 1 >= 0) openNode(nodes[col][row-1]); //Up
+        if(row + 1 < maxRow) openNode(nodes[col][row+1]); //Down
+        if(col - 1 >= 0) openNode(nodes[col-1][row]); //Left
+        if(col + 1 < maxCol) openNode(nodes[col+1][row]); //Right
     }
 
     public void clearObstacle(){

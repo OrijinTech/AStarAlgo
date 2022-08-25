@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="AStarAlgo:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/AStarAlgo_jar</output-path>
+    <root id="archive" name="AStarAlgo.jar">
+      <element id="module-output" name="AStarAlgo" />
+    </root>
+  </artifact>
+</component>

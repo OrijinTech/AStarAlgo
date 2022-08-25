@@ -33,11 +33,11 @@ public class Menu extends JFrame implements ActionListener {
 
         Container mainContainer = this.getContentPane();
         mainContainer.setLayout(new BorderLayout(8,6));
-        this.getRootPane().setBorder(BorderFactory.createMatteBorder(4,4,4,4,Color.green));
+        this.getRootPane().setBorder(BorderFactory.createMatteBorder(4,4,4,4,Color.black));
 
         JPanel topPanel = new JPanel();
-        topPanel.setBorder(new LineBorder(Color.BLACK,3));
-        topPanel.setBackground(Color.orange);
+        topPanel.setBorder(new LineBorder(Color.getHSBColor(calcHueVal(230f), 0.75f, 1f),3));
+        topPanel.setBackground(Color.getHSBColor(calcHueVal(150f),0.75f,1f));
         topPanel.setLayout(new FlowLayout(5));
 
         topPanel.add(button1);
@@ -52,6 +52,10 @@ public class Menu extends JFrame implements ActionListener {
         this.pack();
 
 
+    }
+
+    public float calcHueVal(float hue){
+        return hue/360f;
     }
 
     @Override
